@@ -18,8 +18,8 @@ include_directories(${OpenBLAS_INCLUDE_DIR})
 set(BLAS_LIB ${OpenBLAS_LIB})
 
 #external libraries like faiss
-include_directories(${PROJECT_SOURCE_DIR}/extern_libraries)
-link_directories(${PROJECT_SOURCE_DIR}/extern_libraries/faiss/lib)
+include_directories(${PROJECT_SOURCE_DIR}/extern_libraries/faiss)
+link_directories(${PROJECT_SOURCE_DIR}/extern_libraries/faiss/build/faiss)
 
 add_definitions (-std=c++11 -O3 -lboost -march=native -Wall -DINFO)
 
