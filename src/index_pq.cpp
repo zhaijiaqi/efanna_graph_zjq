@@ -5,9 +5,11 @@
 #include <efanna2e/exceptions.h>
 #include <efanna2e/parameters.h>
 #include <faiss/index_io.h>
+#include <faiss/index_factory.h>
 #include <omp.h>
 
 namespace efanna2e {
+
 IndexPQ::IndexPQ(const size_t dimension, const size_t n, Metric m, Index *initializer):Index(dimension, n, m),
      initializer_{initializer}{}
 
@@ -59,7 +61,7 @@ void IndexPQ::Build(size_t n, const float *data, const Parameters &parameters) {
   }
 
   unsigned k = 10;
-  faiss::Index::idx_t *gt = new faiss::Index::idx_t[k * sample_num];//ground truth
+  faiss::idx_t *gt = new faiss::idx_t[k * sample_num];//ground truth
   unsigned * gt_c = new unsigned[k * sample_num];
   compute_gt_for_tune(sample_queries, sample_num, k, gt_c);
   for(unsigned i=0; i<k*sample_num; i++){
@@ -99,7 +101,7 @@ void IndexPQ::Search(
   faiss::ParameterSpace f_params;
   f_params.set_index_parameters(index, search_key.c_str());
 
-  faiss::Index::idx_t *Ids = new faiss::Index::idx_t[k];
+  faiss::idx_t *Ids = new faiss::idx_t[k];
   float *Dists = new float[k];
 
   index->search(1, query, k, Dists, Ids);
