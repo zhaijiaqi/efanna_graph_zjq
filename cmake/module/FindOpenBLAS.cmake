@@ -1,6 +1,14 @@
 
 
+# 检测conda环境
+SET(CONDA_PATHS)
+IF(DEFINED ENV{CONDA_PREFIX})
+    SET(CONDA_PREFIX $ENV{CONDA_PREFIX})
+    LIST(APPEND CONDA_PATHS ${CONDA_PREFIX}/include ${CONDA_PREFIX}/lib)
+ENDIF()
+
 SET(Open_BLAS_INCLUDE_SEARCH_PATHS
+  ${CONDA_PATHS}
   /usr/include
   /usr/include/openblas
   /usr/include/openblas-base
@@ -14,6 +22,7 @@ SET(Open_BLAS_INCLUDE_SEARCH_PATHS
 )
 
 SET(Open_BLAS_LIB_SEARCH_PATHS
+        ${CONDA_PATHS}
         /lib/
         /lib/openblas-base
         /lib64/
@@ -24,8 +33,6 @@ SET(Open_BLAS_LIB_SEARCH_PATHS
         /usr/local/lib64
         /opt/OpenBLAS/lib
         /opt/local/lib
-        $ENV{OpenBLAS}cd
-        $ENV{OpenBLAS}/lib
         $ENV{OpenBLAS_HOME}
         $ENV{OpenBLAS_HOME}/lib
  )
