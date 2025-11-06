@@ -27,7 +27,7 @@ test_*
 *.swp
 *.swo
 *~
-
+*.cache/
 # OS files
 .DS_Store
 Thumbs.db

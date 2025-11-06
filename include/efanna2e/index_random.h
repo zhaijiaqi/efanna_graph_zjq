@@ -12,24 +12,21 @@
 
 namespace efanna2e {
 
-class IndexRandom : public Index {
-public:
-    IndexRandom(const size_t dimension, const size_t n);
-    virtual ~IndexRandom();
-    std::mt19937 rng;
-    void Save(const char *filename)override{}
-    void Load(const char *filename)override{}
-    virtual void Build(size_t n, const float *data, const Parameters &parameters) override;
+    class IndexRandom : public Index {
+    public:
+        IndexRandom(const size_t dimension, const size_t n);
+        virtual ~IndexRandom();
+        std::mt19937 rng;
+        void Save(const char* filename) override {}
+        void Load(const char* filename) override {}
+        virtual void Build(size_t n, const float* data,
+                           const Parameters& parameters) override;
 
-    virtual void Search(
-      const float *query,
-      const float *x,
-      size_t k,
-      const Parameters &parameters,
-      unsigned *indices) override ;
+        virtual void Search(const float* query, const float* x, size_t k,
+                            const Parameters& parameters,
+                            unsigned* indices) override;
+    };
 
-};
+} // namespace efanna2e
 
-}
-
-#endif //EFANNA2E_INDEX_RANDOM_H
+#endif // EFANNA2E_INDEX_RANDOM_H

@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
+# 生成 compile_commands.json 以支持IDE代码跳转
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 project(efanna2e)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 #OpenMP
@@ -13,9 +16,13 @@ endif()
 
 #OpenBLAS
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/module)
-find_package(OpenBLAS REQUIRED)
-include_directories(${OpenBLAS_INCLUDE_DIR})
-set(BLAS_LIB ${OpenBLAS_LIB})
+find_package(OpenBLAS)
+if(OpenBLAS_FOUND)
+    include_directories(${OpenBLAS_INCLUDE_DIR})
+    set(BLAS_LIB ${OpenBLAS_LIB})
+else()
+    message(WARNING "OpenBLAS not found, but continuing configuration for IDE support")
+endif()
 
 #external libraries like faiss
 include_directories(${PROJECT_SOURCE_DIR}/extern_libraries/faiss)
